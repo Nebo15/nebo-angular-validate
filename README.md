@@ -21,44 +21,17 @@ angular.module('app', [
 ```
 angular.module('app').config(function ($validateProvider) {
 
-  function validateName(val) {
-    val = (val || '').toString();
-    return /^[A-Za-zĂăÂâÎîȘșȚț\- ]{2,}$/.test(val);
-  }
-
-  function validatePhoneNumber(val) {
-    val = (val || '').toString();
-    return /^(\+373|0)[0-9]{9}$/.test(val);
-  }
-
-  function validateBuilding(val) {
-    val = (val || '').toString();
-    return /^[0-9]+([A-Za-z]{1})?((\/|-)+[0-9]+([A-Za-z]{1})?)?$/.test(val);
-  }
-
   var emailRegexp = /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i;
-  function validateEmail (val) {
-    return emailRegexp.test(val || '');
-  }
 
+  // Custom function
   function validateFamilyStatus (val) {
     return ['Not Married','Married','Divorced','Civil','Employed','Unemployed'].indexOf(val) > -1;
   }
-
-  $validateProvider.add('idnp', validateIdnp);
-  $validateProvider.add('iban', validateIBAN);
-
-  $validateProvider.add('firstname', validateName);
-  $validateProvider.add('lastname', validateName);
-  $validateProvider.add('patronymic', validateName);
-
-  $validateProvider.add('phoneNumber', validatePhoneNumber);
-
-  $validateProvider.add('building', validateBuilding);
-
+  
   $validateProvider.add('familyStatus', validateFamilyStatus);
  
-  $validateProvider.add('email', validateEmail);
+  // RegExp support
+  $validateProvider.add('email', emailRegexp);
 
 });
 ```
