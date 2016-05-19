@@ -45,8 +45,11 @@ angular.module('nebo-angular-validate', []).provider('$validate', function () {
         if (validatorFn) {
           type = newType;
           ngModel.$validators[newType] = function (modelValue, viewValue) {
-            console.log('valudate', newType, modelValue);
-            return ngModel.$isEmpty(viewValue) || validatorFn(modelValue);
+            return ngModel.$isEmpty(viewValue) || (
+              typeof validatorFn == 'function' ? validatorFn(modelValue) :
+              validatorFn instanceof RegExp    ? validatorFn.test((modelValue || '').toString()) :
+              false
+            )
           }
         }
       }
