@@ -12,6 +12,7 @@ bower install nebo-angular-validate --save
 angular.module('app', [
   'nebo-angular-validate'
 ]);
+```
 
 ## Usage
 
