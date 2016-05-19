@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('nebo-validate', []).provider('$validate', function () {
+angular.module('nebo-angular-validate', []).provider('$validate', function () {
 
   var validators = {};
 
