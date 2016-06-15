@@ -43,6 +43,12 @@ angular.module('app').config(function ($validateProvider) {
 
 ```
 
+You can assign multiple validators separated by comma.
+
+```
+<input placeholder="First Name placeholder" name="firstName" title="firstName input title" validate="firstname,banlist" ng-model="model.firstName" required="required" class="input"/>
+```
+
 ## Contributing
 
 1. Fork it!
