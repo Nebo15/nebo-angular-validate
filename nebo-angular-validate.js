@@ -44,26 +44,39 @@ angular.module('nebo-angular-validate', []).provider('$validate', function () {
     link: function (scope, el, attrs, ngModel) {
 
       if (!ngModel) return;
-      var type;
+      var types = [];
 
       attrs.$observe('validate', function (val) {
         init(val);
       });
 
       init(attrs['validate']);
-      function init (newType) {
 
-        if (type) {
-          delete ngModel.$validators[type];
-        }
-        var validateObj = $validate.validator(newType);
-        if (validateObj) {
-          type = newType;
-          ngModel.$validators[newType] = function (modelValue, viewValue) {
-            return ngModel.$isEmpty(viewValue) || $validate.validate(newType, modelValue);
+      function addValidator(type) {
+        var validatorFn = $validate.validator(type);
 
+        if (validatorFn) {
+          types.push(type);
+          ngModel.$validators[type] = function (modelValue, viewValue) {
+            return ngModel.$isEmpty(viewValue) || validatorFn(modelValue);
           }
         }
+      }
+
+      function deleteValidator(type) {
+        delete ngModel.$validators[type];
+      }
+
+      function init(str) {
+        var newTypes = str.split(',');
+
+        types = types.filter(function (item) {
+          if (newTypes.indexOf(item) === -1) deleteValidator(item);
+        });
+        newTypes.forEach(function (item) {
+          if (types.indexOf(item) !== -1) return;
+          addValidator(item);
+        })
       }
     }
   }
