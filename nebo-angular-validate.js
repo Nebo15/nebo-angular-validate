@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('nebo-angular-validate', []).provider('$validate', function () {
+angular.module('nebo-angular-validate', []).provider('$validate', function ($injector) {
 
   var validators = {};
 
@@ -22,7 +22,14 @@ angular.module('nebo-angular-validate', []).provider('$validate', function () {
         var validateObject = obj.validator(type);
 
         if (typeof validateObject == 'function') {
-          return validateObject(value);
+          var ctrls;
+          if (Array.isArray(validateObject.inject)) {
+            ctrls = validateObject.inject.map(function (serviceName) {
+              return $injector.get(serviceName);
+            })
+          }
+          return validateObject(value, ctrls);
+
         }
         if (validateObject instanceof RegExp) {
           return validateObject.test((value || '').toString());
