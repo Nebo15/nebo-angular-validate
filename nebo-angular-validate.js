@@ -43,7 +43,7 @@ angular.module('nebo-angular-validate', []).provider('$validate', function ($inj
     }
   }
 
-}).directive('validate', function ($validate) {
+}).directive('validate', ['$validate', function ($validate) {
 
   return {
     restrict: 'A',
@@ -87,4 +87,4 @@ angular.module('nebo-angular-validate', []).provider('$validate', function ($inj
       }
     }
   }
-});
+}]);
