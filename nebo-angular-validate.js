@@ -22,14 +22,7 @@ angular.module('nebo-angular-validate', []).provider('$validate', function ($inj
         var validateObject = obj.validator(type);
 
         if (typeof validateObject == 'function') {
-          var ctrls;
-          if (Array.isArray(validateObject.inject)) {
-            ctrls = validateObject.inject.map(function (serviceName) {
-              return $injector.get(serviceName);
-            })
-          }
-          return validateObject(value, ctrls);
-
+          return validateObject(value);
         }
         if (validateObject instanceof RegExp) {
           return validateObject.test((value || '').toString());
@@ -65,7 +58,7 @@ angular.module('nebo-angular-validate', []).provider('$validate', function ($inj
         if (validatorFn) {
           types.push(type);
           ngModel.$validators[type] = function (modelValue, viewValue) {
-            return ngModel.$isEmpty(viewValue) || validatorFn(modelValue);
+            return ngModel.$isEmpty(viewValue) || $validate.validate(modelValue);
           }
         }
       }
