@@ -1,6 +1,6 @@
 {
   "name": "nebo-angular-validate",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Angular JS validation module. It provides simple interface for custom validations setup.",
   "main": "index.js",
   "scripts": {
