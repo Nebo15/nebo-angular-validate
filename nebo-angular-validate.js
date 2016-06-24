@@ -58,7 +58,7 @@ angular.module('nebo-angular-validate', []).provider('$validate', function ($inj
         if (validatorFn) {
           types.push(type);
           ngModel.$validators[type] = function (modelValue, viewValue) {
-            return ngModel.$isEmpty(viewValue) || $validate.validate(modelValue);
+            return ngModel.$isEmpty(viewValue) || $validate.validate(type, modelValue);
           }
         }
       }
