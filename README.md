@@ -1,5 +1,7 @@
 # Nebo Angular Validate
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/Nebo15/nebo-angular-validate.svg)](https://greenkeeper.io/)
+
 Angular JS validation module. It provides simple interface for custom validations setup.
 
 ## Installation
